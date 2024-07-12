@@ -1,0 +1,9 @@
+apiVersion: "v1"
+kind: ConfigMap
+metadata:
+  name: demo
+  labels:
+    app: demo
+data:
+  # 服务配置
+  server_name: "demo-http"

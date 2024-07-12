@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo-http
+spec:
+  template:
+    metadata:
+      labels:
+        app: demo-http
+        version: v1.1
+    spec:
+      containers:
+        - name: demo-http-server
+          image: qvbilam/http-server:1.1-alpine3.15
+          imagePullPolicy: Always
+          env: # 定义系统参数
+            - name: SERVER_NAME # 系统参数名
+              valueFrom:
+                configMapKeyRef: # 值来源 configMap
+                  key: server_name # configMap.data 中定义健
+                  name: demo # 创建 configMap 名称
+            - name: SERVER_SECRET # 系统参数名
+              valueFrom:
+                secretKeyRef: # 值来源 secret
+                  key: server_secret # secret.stringData 中定义健
+                  name: demo # 创建 secret 名称
+      imagePullSecrets:
+        # 启动中定义的 secret 名字
+        - name: self.hubkey
+  selector:
+    matchLabels:
+      app: demo-http

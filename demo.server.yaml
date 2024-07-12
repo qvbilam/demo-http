@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: demo-http
+spec:
+  selector:
+    app: demo-http
+  ports:
+    - protocol: TCP
+      port: 9001
+  # 在节点开放端口与 pods 端口映射
+  type: NodePort

@@ -7,14 +7,14 @@ WORKDIR /go/src/http-server
 # 设置执行命令
 RUN go env -w GO111MODULE=on \
     && go env -w GOPROXY=https://goproxy.cn,direct \
-    && go build
+    && go build -o app
 
 # 重制作镜像-通过dockerhub可查看golang1.18-alpine对应的alpine版本
 FROM alpine:3.15
-COPY --from=go-alpine-builder /go/src/http-server /bin/http-server
+COPY --from=go-alpine-builder /go/src/http-server/app /bin/http-server
 
 # 暴露端口
 ENV PORT=9001
 EXPOSE 9001
 
-ENTRYPOINT [ "/bin/http-server/app" ]
+ENTRYPOINT [ "/bin/http-server" ]
