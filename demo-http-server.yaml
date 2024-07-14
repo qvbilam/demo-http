@@ -13,6 +13,8 @@ spec:
         - name: demo-http-server
           image: qvbilam/http-server:1.1-alpine3.15
           imagePullPolicy: Always
+          ports: # dockerfile 开放端口
+            - containerPort: 9001
           env: # 定义系统参数
             - name: SERVER_NAME # 系统参数名
               valueFrom:
@@ -30,3 +32,4 @@ spec:
   selector:
     matchLabels:
       app: demo-http
+

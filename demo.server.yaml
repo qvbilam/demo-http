@@ -6,7 +6,8 @@ spec:
   selector:
     app: demo-http
   ports:
-    - protocol: TCP
+    - name: http-demo-http
+      protocol: TCP
       port: 9001
   # 在节点开放端口与 pods 端口映射
   type: NodePort
